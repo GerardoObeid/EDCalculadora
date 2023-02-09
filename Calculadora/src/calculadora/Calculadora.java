@@ -95,7 +95,14 @@ public class Calculadora {
     public static boolean esOperando(char c) {
         return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
-
+    
+    public static double evaluate(String postfijo){
+        double res = 0;
+        for (int i = 0; i < postfijo.length(); i++) {
+        }
+        return res;
+    }
+    
     public static int prioridad(char c) {
         switch (c) {
             case '+':
