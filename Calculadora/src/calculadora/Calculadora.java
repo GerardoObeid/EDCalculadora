@@ -16,7 +16,7 @@ public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "-2.5^3";
+        String st = "(-2.333333)-(-3)";
          infijoAPostfijo(st);
         //System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(terms));
     }
@@ -31,6 +31,7 @@ public class Calculadora {
         return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
     }
     
+    //Revisar
     public static boolean revisaCadena(String cadena){
         Character caracter, previous_token;
         boolean res = true;
@@ -72,23 +73,22 @@ public class Calculadora {
         
         infijo = cadena.split("(?<=[-+*^//()])|(?=[-+*^//()])");
         i = 0;
-        if (ignoreFirstPossibleNeg){
-             while(i < infijo.length){
-                    infijoDivided.add(infijo[i]);
-                    i++;
-                  }
-        }
-        else{
-            while(i < infijo.length){
-                if (i == 0 && infijo[i].equals("-")){
+        
+        while(i < infijo.length){
+            if (i == 0 && infijo[i].equals("-")){
+                infijoDivided.add( "-" + infijo[i+1]);
+                i++;
+              }
+            else{
+                if (i != -1 && infijo[i].equals("-") && (esOperador(infijo[i-1].charAt(0)) || infijo[i-1].equals("("))){
                     infijoDivided.add( "-" + infijo[i+1]);
                     i++;
-                  }
+                }
                 else{
                     infijoDivided.add(infijo[i]);
                 }
-                 i++;
             }
+             i++;
         }
         infijo = null;
         return infijoDivided;
