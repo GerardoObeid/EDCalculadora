@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package calculadora;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -12,21 +14,32 @@ import java.util.Scanner;
  */
 public class Calculadora {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce una expresión matemática infijo: ");
-        String infijo = sc.nextLine();
-        System.out.println(revisaCadena(infijo));
-        System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(infijo));
+
+        String st = "-2.5^3";
+         infijoAPostfijo(st);
+        //System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(terms));
     }
+    
+    //Métodos de revisión
+    public static boolean esOperando(String c) {
+        return c.matches("-?\\d+.?\\d+");
+    }
+    
+
+    public static boolean esOperador(char c){
+        return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
+    }
+    
     public static boolean revisaCadena(String cadena){
         Character caracter, previous_token;
         boolean res = true;
         PilaADT <Character> pila1  = new PilaA();
         int i = 0;
+        
+        //Para evitar seguir revisando si hay operador al final está mal
+        if (esOperador(cadena.charAt(cadena.length()-1)))
+            throw new InvalidEcuationException();
         
         while (i < cadena.length() && res){
             caracter = cadena.charAt(i);
@@ -49,61 +62,56 @@ public class Calculadora {
             res = !res;
         return res;
     }
-     
-    public static String infijoAPostfijo(String infijo) {
-        String postfijo = "";
-        PilaADT <Character> pila = new PilaA <Character>();
-        boolean b;
+    
+    //Preporcesamiento de cadena
+    public static ArrayList <String> getGroupedCadena(String cadena){
+        int i;
+        String [] infijo;
+        ArrayList <String> infijoDivided= new ArrayList<String>();
+        boolean ignoreFirstPossibleNeg = true;
         
-        b = revisaCadena(infijo);
-        System.out.println(b);
-        if (!b)
-            throw new InvalidEcuationException("Ecuación no balanceada");
-        
-        //Por cada elemento de la cadena ingresada
-        for (int i = 0; i < infijo.length(); i++) {
-            char c = infijo.charAt(i);
-           
-            //si es un número o letra lo agregas
-            if (esOperando(c)) {
-                postfijo += c;
-            } 
-            else if (c == '(') {
-                pila.push(c);
-                postfijo += "";
-            } 
-            else if (c == ')') {
-                while (pila.peek() != '(') {
-                    postfijo += pila.pop();
+        infijo = cadena.split("(?<=[-+*^//()])|(?=[-+*^//()])");
+        i = 0;
+        if (ignoreFirstPossibleNeg){
+             while(i < infijo.length){
+                    infijoDivided.add(infijo[i]);
+                    i++;
+                  }
+        }
+        else{
+            while(i < infijo.length){
+                if (i == 0 && infijo[i].equals("-")){
+                    infijoDivided.add( "-" + infijo[i+1]);
+                    i++;
+                  }
+                else{
+                    infijoDivided.add(infijo[i]);
                 }
-                pila.pop();
-            } 
-            else {
-                //vaciamos los operadores de la pila
-                while (!pila.isEmpty() && prioridad(c) <= prioridad(pila.peek())) {
-                    postfijo += pila.pop();
-                }
-                pila.push(c);
+                 i++;
             }
         }
-        while (!pila.isEmpty()) {
-            postfijo += pila.pop();
-        }
-        return postfijo;
-    }
-
-    public static boolean esOperando(char c) {
-        return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+        infijo = null;
+        return infijoDivided;
     }
     
-    public static double evaluate(String postfijo){
-        double res = 0;
-        for (int i = 0; i < postfijo.length(); i++) {
-        }
-        return res;
+     /**
+      *     <ul>
+      *    <li>Conversión de la cadena almacenda en un arraylist a postfijo</li>
+      *     </ul>
+      *    
+      */
+    public static ArrayList  <String> infijoAPostfijo(String cadena) {
+        PilaADT <String> pila = new PilaA <String>();
+        ArrayList  <String>p = new ArrayList  <String>();
+        
+         if(!revisaCadena(cadena))
+            throw new InvalidEcuationException();
+         p= getGroupedCadena(cadena);
+        System.out.println(p);
+        return p;    
     }
     
-    public static int prioridad(char c) {
+ public static int prioridad(char c) {
         switch (c) {
             case '+':
                  return 1;
@@ -118,6 +126,16 @@ public class Calculadora {
         }
         return -1;
     }
+    
+    
+    //Evaluación de postfijo
+    public static double evaluate(String postfijo){
+        double res = 0;
+        for (int i = 0; i < postfijo.length(); i++) {
+        }
+        return res;
+    }
+   
 }
     
 
