@@ -16,7 +16,7 @@ public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "(-2.333333)-(-3)";
+        String st = "(-2.333333)*(-3)";
          infijoAPostfijo(st);
         //System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(terms));
     }
@@ -37,15 +37,28 @@ public class Calculadora {
         boolean res = true;
         PilaADT <Character> pila1  = new PilaA();
         int i = 0;
+        int prioridad1, prioridad2;
         
         //Para evitar seguir revisando si hay operador al final está mal
         if (esOperador(cadena.charAt(cadena.length()-1)))
             throw new InvalidEcuationException();
-        
+        if (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-')
+            throw new InvalidEcuationException();
         while (i < cadena.length() && res){
             caracter = cadena.charAt(i);
-            if (caracter == '(' )
+            if (i < cadena.length()-1 && esOperador(caracter) && esOperador(cadena.charAt(i+1))){
+                prioridad1 = getPrioridad(caracter);
+                prioridad2 = getPrioridad(cadena.charAt(i+1));
+                if (prioridad1 <= prioridad2)
+                    throw new InvalidEcuationException();
+
+            }
+            if (caracter == '(' ){
                 pila1.push(caracter);
+                if (i < cadena.length()-1 && esOperador(cadena.charAt(i+1)) && cadena.charAt(i+1) != '-')
+                    throw new InvalidEcuationException();
+                
+            }
             else if (caracter == ')'){
                 try{
                     previous_token = pila1.pop();
@@ -100,18 +113,32 @@ public class Calculadora {
       *     </ul>
       *    
       */
-    public static ArrayList  <String> infijoAPostfijo(String cadena) {
-        PilaADT <String> pila = new PilaA <String>();
-        ArrayList  <String>p = new ArrayList  <String>();
+    public static double infijoAPostfijo(String cadena) {
+        PilaADT <String> operadores = new PilaA <String>();
+        ArrayList  <String> groupList = new ArrayList  <String>();
+        ArrayList  <Double> operandosList = new ArrayList  <Double>();
+        double res = 0;
         
-         if(!revisaCadena(cadena))
+        if(!revisaCadena(cadena))
             throw new InvalidEcuationException();
-         p= getGroupedCadena(cadena);
-        System.out.println(p);
-        return p;    
+        groupList = getGroupedCadena(cadena);
+        for (int i = 0; i < groupList.size(); i++) {
+            String c = groupList.get(i);
+
+            //si es un número o letra lo agregas
+            if (esOperando(c)) {
+                operandosList.add(Double.parseDouble(c));
+            } 
+            else if (esOperador(c.charAt(0))){
+                
+            }
+            
+        }
+        System.out.println();
+        return res;    
     }
     
- public static int prioridad(char c) {
+ public static int getPrioridad(char c) {
         switch (c) {
             case '+':
                  return 1;
