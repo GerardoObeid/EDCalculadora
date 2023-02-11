@@ -9,20 +9,22 @@ import java.util.Scanner;
 
 
 /**
- *
- * @author obeid    
+ * @author GERARDO OBEID GUZMÁN
+ * @author JOSE PABLO ANTÚNEZ
+ * @author DIEGO GAYOU
+ * @author  
  */
 public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "(1*2*3*4)*(5*6*7)";
-        System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(st));
+        String st = "2^3";
+        System.out.println("El resultado es: " + infijoAPostfijo(st));
     }
     
     //Métodos de revisión
     public static boolean esOperando(String c) {
-        return c.matches("\\-?\\d+\\.?\\d*")&& !c.equals("-");
+        return c.matches("\\-?\\d+\\.?\\d*") ||c.matches("-?\\.\\d+"); 
     }
     
     public static boolean esOperador(char c){
@@ -107,10 +109,10 @@ public class Calculadora {
       *    
       */
     public static double infijoAPostfijo(String cadena) {
-        PilaADT <String> operadores = new PilaA <String>();
-        ArrayList  <String> groupList = new ArrayList  <String>();
-        ArrayList  <Double> operandosList = new ArrayList  <Double>();
-        ArrayList  <String> puebaPost = new ArrayList  <String>();
+        PilaADT <String> operadores = new PilaA <>();
+        ArrayList  <String> groupList;
+        ArrayList  <Double> operandosList = new ArrayList  <>();
+        ArrayList  <String> pruebaPost = new ArrayList  <>();
         double res = 0;
         
         if(!revisaCadena(cadena))
@@ -119,14 +121,13 @@ public class Calculadora {
         groupList = getGroupedCadena(cadena);
         for (int i = 0; i < groupList.size(); i++) {
             String c = groupList.get(i);
-            System.out.println(c);
             if (esOperando(c)) {
                 operandosList.add(Double.parseDouble(c));
-                puebaPost.add(c);     
+                pruebaPost.add(c);
             } 
             else if (esOperador(c.charAt(0))){
                 while(!operadores.isEmpty() && getPrioridad(c.charAt(0)) <= getPrioridad(operadores.peek().charAt(0))){
-                    puebaPost.add(operadores.pop());
+                    pruebaPost.add(operadores.pop());
                 }
                 operadores.push(c);
              
@@ -136,15 +137,17 @@ public class Calculadora {
             }             
             else if (c.equals(")")) {
                 while (!operadores.isEmpty() && !operadores.peek().equals("(")) {
-                    puebaPost.add(operadores.pop());
+                    pruebaPost.add(operadores.pop());
                 }
                 operadores.pop();
             } 
         }
         while(!operadores.isEmpty())
-            puebaPost.add(operadores.pop());
-        System.out.println(puebaPost);
-        res = evaluate(puebaPost);
+            pruebaPost.add(operadores.pop());
+        
+        System.out.println(pruebaPost);
+        
+        res = evaluate(pruebaPost);
         return res;    
     }
     
@@ -186,6 +189,9 @@ public class Calculadora {
                         break;
                     case("*"):
                         res = num1 * num2;
+                        break;
+                    case("^"):
+                        res = Math.pow(num1, num2);
                         break;
                     case("/"):
                          res = num1 / num2;
