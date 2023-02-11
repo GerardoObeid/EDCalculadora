@@ -16,17 +16,15 @@ public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "(-2.333333)*(-3)";
-         infijoAPostfijo(st);
-        //System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(terms));
+        String st = "(1*2*3*4)*(5*6*7)";
+        System.out.println("La expresión matemática postfijo es: " + infijoAPostfijo(st));
     }
     
     //Métodos de revisión
     public static boolean esOperando(String c) {
-        return c.matches("-?\\d+.?\\d+");
+        return c.matches("\\-?\\d+\\.?\\d*")&& !c.equals("-");
     }
     
-
     public static boolean esOperador(char c){
         return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
     }
@@ -51,13 +49,11 @@ public class Calculadora {
                 prioridad2 = getPrioridad(cadena.charAt(i+1));
                 if (prioridad1 <= prioridad2)
                     throw new InvalidEcuationException();
-
             }
             if (caracter == '(' ){
                 pila1.push(caracter);
                 if (i < cadena.length()-1 && esOperador(cadena.charAt(i+1)) && cadena.charAt(i+1) != '-')
                     throw new InvalidEcuationException();
-                
             }
             else if (caracter == ')'){
                 try{
@@ -68,7 +64,6 @@ public class Calculadora {
                   catch (EmtpyCollectionException error){
                        res = false;
                   }
-                   
                }
            i++; 
         }
@@ -82,8 +77,7 @@ public class Calculadora {
         int i;
         String [] infijo;
         ArrayList <String> infijoDivided= new ArrayList<String>();
-        boolean ignoreFirstPossibleNeg = true;
-        
+      
         infijo = cadena.split("(?<=[-+*^//()])|(?=[-+*^//()])");
         i = 0;
         
@@ -97,9 +91,8 @@ public class Calculadora {
                     infijoDivided.add( "-" + infijo[i+1]);
                     i++;
                 }
-                else{
+                else
                     infijoDivided.add(infijo[i]);
-                }
             }
              i++;
         }
@@ -117,24 +110,41 @@ public class Calculadora {
         PilaADT <String> operadores = new PilaA <String>();
         ArrayList  <String> groupList = new ArrayList  <String>();
         ArrayList  <Double> operandosList = new ArrayList  <Double>();
+        ArrayList  <String> puebaPost = new ArrayList  <String>();
         double res = 0;
         
         if(!revisaCadena(cadena))
             throw new InvalidEcuationException();
+        
         groupList = getGroupedCadena(cadena);
         for (int i = 0; i < groupList.size(); i++) {
             String c = groupList.get(i);
-
-            //si es un número o letra lo agregas
+            System.out.println(c);
             if (esOperando(c)) {
                 operandosList.add(Double.parseDouble(c));
+                puebaPost.add(c);     
             } 
             else if (esOperador(c.charAt(0))){
-                
+                while(!operadores.isEmpty() && getPrioridad(c.charAt(0)) <= getPrioridad(operadores.peek().charAt(0))){
+                    puebaPost.add(operadores.pop());
+                }
+                operadores.push(c);
+             
             }
-            
+            else if (c.equals(("("))) {
+                operadores.push(c);
+            }             
+            else if (c.equals(")")) {
+                while (!operadores.isEmpty() && !operadores.peek().equals("(")) {
+                    puebaPost.add(operadores.pop());
+                }
+                operadores.pop();
+            } 
         }
-        System.out.println();
+        while(!operadores.isEmpty())
+            puebaPost.add(operadores.pop());
+        System.out.println(puebaPost);
+        res = evaluate(puebaPost);
         return res;    
     }
     
@@ -154,13 +164,41 @@ public class Calculadora {
         return -1;
     }
     
-    
+   
     //Evaluación de postfijo
-    public static double evaluate(String postfijo){
-        double res = 0;
-        for (int i = 0; i < postfijo.length(); i++) {
+    public static double evaluate(ArrayList <String>postfijo){
+        Double num1, num2, res;
+        PilaADT<Double> operandos = new PilaA();
+        String token;
+        
+        res = 0.0;
+        for(int i = 0; i < postfijo.size(); i++){
+            token = postfijo.get(i);
+            if(token.length() == 1 && esOperador(token.charAt(0))) {
+                num2 = operandos.pop();
+                num1 = operandos.pop();
+                switch(token){
+                    case("+"):
+                        res = num1 + num2;
+                        break;
+                    case("-"):
+                        res = num1 - num2;
+                        break;
+                    case("*"):
+                        res = num1 * num2;
+                        break;
+                    case("/"):
+                         res = num1 / num2;
+                         if(res.isInfinite() || res.isNaN())
+                             throw new RuntimeException("Error");
+                        break;
+                }
+                operandos.push(res);
+            } else {
+                operandos.push(Double.parseDouble(token));
+            }
         }
-        return res;
+        return operandos.pop();
     }
    
 }
