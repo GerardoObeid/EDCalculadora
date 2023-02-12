@@ -11,14 +11,14 @@ import java.util.Scanner;
 /**
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
- * @author DIEGO GAYOU
+ * @author DIEGO GARCIA GAYOU
  * @author  
  */
 public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "2^3";
+        String st = "1+1";
         System.out.println("El resultado es: " + infijoAPostfijo(st));
     }
     
@@ -112,22 +112,19 @@ public class Calculadora {
         PilaADT <String> operadores = new PilaA <>();
         ArrayList  <String> groupList;
         ArrayList  <Double> operandosList = new ArrayList  <>();
-        ArrayList  <String> pruebaPost = new ArrayList  <>();
-        double res = 0;
         
         if(!revisaCadena(cadena))
             throw new InvalidEcuationException();
         
         groupList = getGroupedCadena(cadena);
+        
         for (int i = 0; i < groupList.size(); i++) {
             String c = groupList.get(i);
-            if (esOperando(c)) {
+            if (esOperando(c))
                 operandosList.add(Double.parseDouble(c));
-                pruebaPost.add(c);
-            } 
             else if (esOperador(c.charAt(0))){
                 while(!operadores.isEmpty() && getPrioridad(c.charAt(0)) <= getPrioridad(operadores.peek().charAt(0))){
-                    pruebaPost.add(operadores.pop());
+                    
                 }
                 operadores.push(c);
              
@@ -137,18 +134,24 @@ public class Calculadora {
             }             
             else if (c.equals(")")) {
                 while (!operadores.isEmpty() && !operadores.peek().equals("(")) {
-                    pruebaPost.add(operadores.pop());
+                    int size = operandosList.size();
+                    double evaluado = evaluate(c,operandosList, size);
+                    operandosList.set(size-2, evaluado);
+                    operandosList.remove(size-1);
                 }
                 operadores.pop();
             } 
         }
-        while(!operadores.isEmpty())
-            pruebaPost.add(operadores.pop());
+        while(!operadores.isEmpty()){
+            int size = operandosList.size();
+            double evaluado = evaluate(operadores.pop(),operandosList, size);
+            operandosList.set(size-2, evaluado);
+            operandosList.remove(size-1);
+        }
+    
+        System.out.println(operandosList.get(0));
         
-        System.out.println(pruebaPost);
-        
-        res = evaluate(pruebaPost);
-        return res;    
+        return operandosList.get(0);    
     }
     
  public static int getPrioridad(char c) {
@@ -167,46 +170,33 @@ public class Calculadora {
         return -1;
     }
     
-   
     //Evaluación de postfijo
-    public static double evaluate(ArrayList <String>postfijo){
-        Double num1, num2, res;
-        PilaADT<Double> operandos = new PilaA();
-        String token;
+    public static double evaluate(String operador, ArrayList<Double> operandos, int size){
         
-        res = 0.0;
-        for(int i = 0; i < postfijo.size(); i++){
-            token = postfijo.get(i);
-            if(token.length() == 1 && esOperador(token.charAt(0))) {
-                num2 = operandos.pop();
-                num1 = operandos.pop();
-                switch(token){
-                    case("+"):
-                        res = num1 + num2;
-                        break;
-                    case("-"):
-                        res = num1 - num2;
-                        break;
-                    case("*"):
-                        res = num1 * num2;
-                        break;
-                    case("^"):
-                        res = Math.pow(num1, num2);
-                        break;
-                    case("/"):
-                         res = num1 / num2;
-                         if(res.isInfinite() || res.isNaN())
-                             throw new RuntimeException("Error");
-                        break;
-                }
-                operandos.push(res);
-            } else {
-                operandos.push(Double.parseDouble(token));
-            }
+        double num1 =  operandos.get(size-2);
+        double num2 =  operandos.get(size-1);
+        Double res;
+        
+        Double evaluado = 0.0;
+        switch(operador){
+            case("+"):
+                res = num1 + num2;
+                break;
+            case("-"):
+                res = num1 - num2;
+                break;
+            case("*"):
+                res = num1 * num2;
+                break;
+            case("^"):
+                res = Math.pow(num1, num2);
+                break;
+            case("/"):
+                 res = num1 / num2;
+                 if(res.isInfinite() || res.isNaN())
+                     throw new RuntimeException("Error");
+                break;
         }
-        return operandos.pop();
+        return evaluado;
     }
-   
 }
-    
-
