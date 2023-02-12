@@ -18,7 +18,7 @@ public class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "2^3";
+        String st = "35*3-(2^3)";
         System.out.println("El resultado es: " + infijoAPostfijo(st));
     }
     
