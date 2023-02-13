@@ -5,8 +5,10 @@
 package calculadora;
 
 /**
- *
- * @author obeid
+ * @author GERARDO OBEID GUZMÁN
+ * @author JOSE PABLO ANTÚNEZ
+ * @author DIEGO GARCÍA GAYOU
+ * @author WILFREDO SALAZAR
  */
 public class PilaA <T> implements PilaADT <T> {
     private T[]  pila;

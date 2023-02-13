@@ -10,9 +10,10 @@ package calculadora;
  * @author DIEGO GARCÍA GAYOU
  * @author WILFREDO SALAZAR
  */
-public class InvalidEcuationException extends RuntimeException {
-    public InvalidEcuationException(){}
-    public InvalidEcuationException(String message){
+public class UndefinedOperationException extends RuntimeException {
+    public UndefinedOperationException(){}
+    public UndefinedOperationException(String message){
         super(message);
     }
+    
 }

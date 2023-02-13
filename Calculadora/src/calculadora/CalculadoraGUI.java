@@ -5,8 +5,10 @@
 package calculadora;
 
 /**
- *
- * @author obeid
+ * @author GERARDO OBEID GUZMÁN
+ * @author JOSE PABLO ANTÚNEZ
+ * @author DIEGO GARCÍA GAYOU
+ * @author WILFREDO SALAZAR
  */
 public class CalculadoraGUI extends javax.swing.JFrame {
 
@@ -19,6 +21,8 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     private double VALUE_E = 2.71828;
     private double VALUE_PI = 3.1416;
     private String textoPantalla;
+    private double respuesta;
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +58,9 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         jbE = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CALCULATOR");
 
+        jb6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb6.setText("6");
         jb6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,6 +68,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb4.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb4.setText("4");
         jb4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +76,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb7.setText("7");
         jb7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +92,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb1.setText("1");
         jb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,6 +100,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb0.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb0.setText("0");
         jb0.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +108,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbBorrar.setFont(new java.awt.Font("MS PGothic", 1, 13)); // NOI18N
         jbBorrar.setText("c");
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +116,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
-        jbPot.setFont(new java.awt.Font("MS PGothic", 0, 18)); // NOI18N
+        jbPot.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbPot.setText("^");
         jbPot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +132,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb8.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb8.setText("8");
         jb8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +140,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
-        jbResta.setFont(new java.awt.Font("MS PGothic", 0, 14)); // NOI18N
+        jbResta.setFont(new java.awt.Font("MS PGothic", 1, 16)); // NOI18N
         jbResta.setText("-");
         jbResta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +148,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb5.setText("5");
         jb5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +156,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb2.setText("2");
         jb2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +172,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb3.setText("3");
         jb3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,6 +188,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb9.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb9.setText("9");
         jb9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +196,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
-        jbPi.setFont(new java.awt.Font("MS PGothic", 1, 10)); // NOI18N
+        jbPi.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
         jbPi.setText("π");
         jbPi.setToolTipText("");
         jbPi.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +205,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
-        jbMult.setFont(new java.awt.Font("MS PGothic", 0, 14)); // NOI18N
+        jbMult.setFont(new java.awt.Font("MS PGothic", 1, 16)); // NOI18N
         jbMult.setText("*");
         jbMult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,7 +214,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         });
 
         jtfPantalla.setEditable(false);
-        jtfPantalla.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
+        jtfPantalla.setFont(new java.awt.Font("MS PGothic", 1, 18)); // NOI18N
         jtfPantalla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfPantallaActionPerformed(evt);
@@ -285,7 +301,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
                                     .addComponent(jbParentCerr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,11 +311,12 @@ public class CalculadoraGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbMult, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbResta, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbE, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jbMult, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jbResta, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
@@ -345,6 +362,8 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         jbPi.getAccessibleContext().setAccessibleName("jbPi");
         jbParentAbr.getAccessibleContext().setAccessibleName("jbParenthesisOpen");
         jbParentCerr.getAccessibleContext().setAccessibleName("jbParenthesisClose");
+        jbBorrarTodo.getAccessibleContext().setAccessibleName("jbAc");
+        jbBorrarTodo.getAccessibleContext().setAccessibleDescription("");
 
         pack();
         setLocationRelativeTo(null);
@@ -359,7 +378,14 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbPotActionPerformed
 
     private void jbRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRespuestaActionPerformed
-        jtfPantalla.setText("TO DO..");
+        textoPantalla = jtfPantalla.getText();
+        try{
+            respuesta = Calculadora.evaluate(Calculadora.infijoAPostfijo(textoPantalla));
+            jtfPantalla.setText(""+respuesta);
+        }
+        catch(Exception e){
+            jtfPantalla.setText(e.getMessage());  
+        }
     }//GEN-LAST:event_jbRespuestaActionPerformed
 
     private void jbSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSumaActionPerformed
@@ -386,7 +412,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbParentCerrActionPerformed
 
     private void jbBorrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarTodoActionPerformed
-        // TODO add your handling code here:
+        jtfPantalla.setText("");
     }//GEN-LAST:event_jbBorrarTodoActionPerformed
 
     private void jbEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEActionPerformed

@@ -4,22 +4,21 @@
  */
 package calculadora;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
 
 /**
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
- * @author DIEGO GAYOU
- * @author  
+ * @author DIEGO GARCÍA GAYOU
+ * @author WILFREDO SALAZAR
  */
-public class Calculadora {
+public abstract class Calculadora {
 
     public static void main(String[] args) {
 
-        String st = "35*3-(2^3)";
-        System.out.println("El resultado es: " + infijoAPostfijo(st));
+        String st = "(2)+5+3+4+2+1";
+        ArrayList <String> Postfix = infijoAPostfijo(st);
+        System.out.println("La expresión Postfijo es: " + Postfix );
+        System.out.println("El resultado es: " + evaluate(Postfix));
     }
     
     //Métodos de revisión
@@ -41,21 +40,24 @@ public class Calculadora {
         
         //Para evitar seguir revisando si hay operador al final está mal
         if (esOperador(cadena.charAt(cadena.length()-1)))
-            throw new InvalidEcuationException();
+            throw new InvalidEcuationException("Ecuación Inválida");
         if (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-')
-            throw new InvalidEcuationException();
+            throw new InvalidEcuationException("Ecuación Inválida");
+        if (cadena.contains(")("))
+            throw new InvalidEcuationException("Ecuación Inválida");
+        
         while (i < cadena.length() && res){
             caracter = cadena.charAt(i);
             if (i < cadena.length()-1 && esOperador(caracter) && esOperador(cadena.charAt(i+1))){
                 prioridad1 = getPrioridad(caracter);
                 prioridad2 = getPrioridad(cadena.charAt(i+1));
                 if (prioridad1 <= prioridad2)
-                    throw new InvalidEcuationException();
+                    throw new InvalidEcuationException("Ecuación Inválida");
             }
             if (caracter == '(' ){
                 pila1.push(caracter);
                 if (i < cadena.length()-1 && esOperador(cadena.charAt(i+1)) && cadena.charAt(i+1) != '-')
-                    throw new InvalidEcuationException();
+                    throw new InvalidEcuationException("Ecuación Inválida");
             }
             else if (caracter == ')'){
                 try{
@@ -102,53 +104,50 @@ public class Calculadora {
         return infijoDivided;
     }
     
-     /**
-      *     <ul>
-      *    <li>Conversión de la cadena almacenda en un arraylist a postfijo</li>
-      *     </ul>
-      *    
-      */
-    public static double infijoAPostfijo(String cadena) {
+    /**
+     * <pre>
+     * <ul>
+     * <li>Conversión de la cadena almacenda en un arraylist a postfijo</li>
+     * <li>Recibe una cadena y llama a la función revisaCadena y getGroupedCadena para validar y agrupar</li>
+     * <li>Devuelve un ArrayList de tipo String con los términos en postfijo</li>
+     * </ul>
+     * </pre>
+     * @param cadena
+     * @return PostfixExpression
+     */
+    public static ArrayList  <String> infijoAPostfijo(String cadena) {
         PilaADT <String> operadores = new PilaA <>();
         ArrayList  <String> groupList;
-        ArrayList  <Double> operandosList = new ArrayList  <>();
-        ArrayList  <String> pruebaPost = new ArrayList  <>();
-        double res = 0;
+        ArrayList  <String> PostfixExpression = new ArrayList  <>();
         
         if(!revisaCadena(cadena))
-            throw new InvalidEcuationException();
+            throw new InvalidEcuationException("Ecuación Inválida");
         
         groupList = getGroupedCadena(cadena);
         for (int i = 0; i < groupList.size(); i++) {
             String c = groupList.get(i);
             if (esOperando(c)) {
-                operandosList.add(Double.parseDouble(c));
-                pruebaPost.add(c);
+                PostfixExpression.add(c);
             } 
             else if (esOperador(c.charAt(0))){
                 while(!operadores.isEmpty() && getPrioridad(c.charAt(0)) <= getPrioridad(operadores.peek().charAt(0))){
-                    pruebaPost.add(operadores.pop());
+                    PostfixExpression.add(operadores.pop());
                 }
                 operadores.push(c);
-             
             }
             else if (c.equals(("("))) {
                 operadores.push(c);
             }             
             else if (c.equals(")")) {
                 while (!operadores.isEmpty() && !operadores.peek().equals("(")) {
-                    pruebaPost.add(operadores.pop());
+                    PostfixExpression.add(operadores.pop());
                 }
                 operadores.pop();
             } 
         }
         while(!operadores.isEmpty())
-            pruebaPost.add(operadores.pop());
-        
-        System.out.println(pruebaPost);
-        
-        res = evaluate(pruebaPost);
-        return res;    
+            PostfixExpression.add(operadores.pop());
+        return PostfixExpression;    
     }
     
  public static int getPrioridad(char c) {
@@ -167,20 +166,24 @@ public class Calculadora {
         return -1;
     }
     
-   
-    //Evaluación de postfijo
+    
+ /**
+  * 
+  * @param postfijo 
+  * @return res
+  */
     public static double evaluate(ArrayList <String>postfijo){
         Double num1, num2, res;
         PilaADT<Double> operandos = new PilaA();
-        String token;
+        String element;
         
         res = 0.0;
         for(int i = 0; i < postfijo.size(); i++){
-            token = postfijo.get(i);
-            if(token.length() == 1 && esOperador(token.charAt(0))) {
+            element = postfijo.get(i);
+            if(element.length() == 1 && esOperador(element.charAt(0))) {
                 num2 = operandos.pop();
                 num1 = operandos.pop();
-                switch(token){
+                switch(element){
                     case("+"):
                         res = num1 + num2;
                         break;
@@ -196,17 +199,17 @@ public class Calculadora {
                     case("/"):
                          res = num1 / num2;
                          if(res.isInfinite() || res.isNaN())
-                             throw new RuntimeException("Error");
+                             throw new UndefinedOperationException("Error Matemático");
                         break;
                 }
                 operandos.push(res);
             } else {
-                operandos.push(Double.parseDouble(token));
+                operandos.push(Double.parseDouble(element));
             }
         }
-        return operandos.pop();
-    }
-   
+        res = operandos.pop();
+        return res;
+    }  
 }
     
 
