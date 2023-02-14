@@ -4,6 +4,9 @@
  */
 package calculadora;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author GERARDO OBEID GUZMÁN
@@ -12,10 +15,11 @@ import java.util.ArrayList;
  * @author WILFREDO SALAZAR
  */
 public abstract class Calculadora {
-
     public static void main(String[] args) {
 
-        String st = "(2)+5+3+4+2+1";
+        String st = "5+πe+7";
+                
+        System.out.println(st.matches(".*[eπ]|[πe].*"));
         ArrayList <String> Postfix = infijoAPostfijo(st);
         System.out.println("La expresión Postfijo es: " + Postfix );
         System.out.println("El resultado es: " + evaluate(Postfix));
@@ -23,7 +27,7 @@ public abstract class Calculadora {
     
     //Métodos de revisión
     public static boolean esOperando(String c) {
-        return c.matches("\\-?\\d+\\.?\\d*") ||c.matches("-?\\.\\d+"); 
+        return c.matches("\\-?\\d+\\.?\\d*") ||c.matches("-?\\.\\d+") || c.matches("\\-?\\d+\\.?\\d*E{0,1}\\d+"); 
     }
     
     public static boolean esOperador(char c){
@@ -37,14 +41,21 @@ public abstract class Calculadora {
         PilaADT <Character> pila1  = new PilaA();
         int i = 0;
         int prioridad1, prioridad2;
-        
+        String regex; 
+        Pattern pattern; 
+        Matcher checker; 
         //Para evitar seguir revisando si hay operador al final está mal
         if (esOperador(cadena.charAt(cadena.length()-1)))
             throw new InvalidEcuationException("Ecuación Inválida");
         if (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-')
             throw new InvalidEcuationException("Ecuación Inválida");
-        if (cadena.contains(")("))
+        
+        regex = "eπ|πe|\\dπ|\\de|π\\d|e\\d|\\)\\(";
+        pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        checker = pattern.matcher(cadena);
+        if (checker.find())
             throw new InvalidEcuationException("Ecuación Inválida");
+
         
         while (i < cadena.length() && res){
             caracter = cadena.charAt(i);
@@ -81,10 +92,13 @@ public abstract class Calculadora {
         int i;
         String [] infijo;
         ArrayList <String> infijoDivided= new ArrayList<String>();
-      
+        if (cadena.contains("e"))
+            cadena = cadena.replace("e", "" + Math.E);
+        if (cadena.contains("π"))
+            cadena = cadena.replace("π", "" + Math.PI);
+        
         infijo = cadena.split("(?<=[-+*^//()])|(?=[-+*^//()])");
         i = 0;
-        
         while(i < infijo.length){
             if (i == 0 && infijo[i].equals("-")){
                 infijoDivided.add( "-" + infijo[i+1]);
@@ -149,7 +163,17 @@ public abstract class Calculadora {
             PostfixExpression.add(operadores.pop());
         return PostfixExpression;    
     }
-    
+ 
+    /**
+     * <pre>
+     * <ul>
+     * <li>Función que devuelve la prioridad de un operador</li>
+     * <li>Recibe un caracter y revisa su prioridad</li>
+     * <li>Devuelve un entero con la prioridad
+     * </pre>
+     * @param c
+     * @return [1,3]
+     */
  public static int getPrioridad(char c) {
         switch (c) {
             case '+':
@@ -195,6 +219,8 @@ public abstract class Calculadora {
                         break;
                     case("^"):
                         res = Math.pow(num1, num2);
+                        if(res.isInfinite() || res.isNaN())
+                             throw new UndefinedOperationException("Infinito");
                         break;
                     case("/"):
                          res = num1 / num2;

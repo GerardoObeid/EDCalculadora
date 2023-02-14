@@ -18,8 +18,6 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     public CalculadoraGUI() {
         initComponents();
     }
-    private double VALUE_E = 2.71828;
-    private double VALUE_PI = 3.1416;
     private String textoPantalla;
     private double respuesta;
     
@@ -409,6 +407,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         catch(Exception e){
             jtfPantalla.setText(e.getMessage());  
         }
+        System.out.println(textoPantalla);
     }//GEN-LAST:event_jbRespuestaActionPerformed
 
     private void jbSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSumaActionPerformed
@@ -416,7 +415,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSumaActionPerformed
 
     private void jbPiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPiActionPerformed
-        appendToDisplayText(""+VALUE_PI);
+        appendToDisplayText("π");
     }//GEN-LAST:event_jbPiActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
@@ -439,7 +438,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jbBorrarTodoActionPerformed
 
     private void jbEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEActionPerformed
-        appendToDisplayText(""+VALUE_E);
+        appendToDisplayText("e");
         
     }//GEN-LAST:event_jbEActionPerformed
 
