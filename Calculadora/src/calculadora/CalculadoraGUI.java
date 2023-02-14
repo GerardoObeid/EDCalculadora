@@ -60,6 +60,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CALCULATOR");
 
+        jb6.setBackground(new java.awt.Color(255, 255, 153));
         jb6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb6.setText("6");
         jb6.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +69,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb4.setBackground(new java.awt.Color(255, 255, 153));
         jb4.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb4.setText("4");
         jb4.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +78,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb7.setBackground(new java.awt.Color(255, 255, 153));
         jb7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb7.setText("7");
         jb7.addActionListener(new java.awt.event.ActionListener() {
@@ -84,6 +87,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbSuma.setBackground(new java.awt.Color(102, 255, 255));
         jbSuma.setFont(new java.awt.Font("MS PGothic", 1, 17)); // NOI18N
         jbSuma.setText("+");
         jbSuma.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +96,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb1.setBackground(new java.awt.Color(255, 255, 153));
         jb1.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb1.setText("1");
         jb1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +105,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb0.setBackground(new java.awt.Color(255, 255, 153));
         jb0.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb0.setText("0");
         jb0.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +114,8 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
-        jbBorrar.setFont(new java.awt.Font("MS PGothic", 1, 13)); // NOI18N
+        jbBorrar.setBackground(new java.awt.Color(255, 153, 153));
+        jbBorrar.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbBorrar.setText("c");
         jbBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +123,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbPot.setBackground(new java.awt.Color(102, 255, 255));
         jbPot.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbPot.setText("^");
         jbPot.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +132,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbRespuesta.setBackground(new java.awt.Color(0, 204, 0));
         jbRespuesta.setFont(new java.awt.Font("Gill Sans MT", 1, 14)); // NOI18N
         jbRespuesta.setText("=");
         jbRespuesta.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +141,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb8.setBackground(new java.awt.Color(255, 255, 153));
         jb8.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb8.setText("8");
         jb8.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +150,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbResta.setBackground(new java.awt.Color(102, 255, 255));
         jbResta.setFont(new java.awt.Font("MS PGothic", 1, 16)); // NOI18N
         jbResta.setText("-");
         jbResta.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +159,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb5.setBackground(new java.awt.Color(255, 255, 153));
         jb5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb5.setText("5");
         jb5.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +168,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb2.setBackground(new java.awt.Color(255, 255, 153));
         jb2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb2.setText("2");
         jb2.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +177,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbPunto.setBackground(new java.awt.Color(0, 204, 204));
         jbPunto.setFont(new java.awt.Font("MS PGothic", 1, 24)); // NOI18N
         jbPunto.setText(".");
         jbPunto.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +186,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb3.setBackground(new java.awt.Color(255, 255, 153));
         jb3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb3.setText("3");
         jb3.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +195,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbDiv.setBackground(new java.awt.Color(102, 255, 255));
         jbDiv.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbDiv.setText("/");
         jbDiv.addActionListener(new java.awt.event.ActionListener() {
@@ -188,6 +204,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jb9.setBackground(new java.awt.Color(255, 255, 153));
         jb9.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jb9.setText("9");
         jb9.addActionListener(new java.awt.event.ActionListener() {
@@ -196,6 +213,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbPi.setBackground(new java.awt.Color(255, 255, 153));
         jbPi.setFont(new java.awt.Font("MS PGothic", 1, 12)); // NOI18N
         jbPi.setText("π");
         jbPi.setToolTipText("");
@@ -205,6 +223,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbMult.setBackground(new java.awt.Color(102, 255, 255));
         jbMult.setFont(new java.awt.Font("MS PGothic", 1, 16)); // NOI18N
         jbMult.setText("*");
         jbMult.addActionListener(new java.awt.event.ActionListener() {
@@ -221,6 +240,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbParentAbr.setBackground(new java.awt.Color(0, 204, 204));
         jbParentAbr.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbParentAbr.setText("(");
         jbParentAbr.setToolTipText("");
@@ -230,6 +250,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbParentCerr.setBackground(new java.awt.Color(0, 204, 204));
         jbParentCerr.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbParentCerr.setText(")");
         jbParentCerr.addActionListener(new java.awt.event.ActionListener() {
@@ -238,6 +259,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbBorrarTodo.setBackground(new java.awt.Color(255, 153, 153));
         jbBorrarTodo.setFont(new java.awt.Font("MS PGothic", 1, 10)); // NOI18N
         jbBorrarTodo.setText("AC");
         jbBorrarTodo.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +268,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
             }
         });
 
+        jbE.setBackground(new java.awt.Color(255, 255, 153));
         jbE.setFont(new java.awt.Font("MS PGothic", 1, 14)); // NOI18N
         jbE.setText("e");
         jbE.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +282,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jtfPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -288,35 +311,35 @@ public class CalculadoraGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbResta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jbE, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbPot, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbPot, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(1, 1, 1)
+                                .addComponent(jbE, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbBorrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jbPi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jbParentAbr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbParentCerr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jbPi, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                    .addComponent(jbParentCerr, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
                 .addComponent(jtfPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jbMult, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jbResta, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbMult, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbDiv, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbResta, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbPot, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
@@ -335,10 +358,10 @@ public class CalculadoraGUI extends javax.swing.JFrame {
                                     .addComponent(jbParentAbr, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jbPot, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jbBorrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jbBorrarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbE, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jbRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbSuma, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,7 +378,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
                                 .addComponent(jbParentCerr, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jbPunto, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jb0, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(31, 31, 31))
+                .addGap(49, 49, 49))
         );
 
         jbBorrar.getAccessibleContext().setAccessibleName("AC");
