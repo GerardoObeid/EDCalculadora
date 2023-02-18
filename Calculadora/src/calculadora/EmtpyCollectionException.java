@@ -5,11 +5,13 @@
 package calculadora;
 
 /**
+ * Excepción para pilas vacías
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
  * @author DIEGO GARCÍA GAYOU
  * @author WILFREDO SALAZAR
  */
+
 public class EmtpyCollectionException extends RuntimeException {
     public EmtpyCollectionException(){}
     public EmtpyCollectionException(String message){

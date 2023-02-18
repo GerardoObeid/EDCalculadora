@@ -5,6 +5,7 @@
 package calculadora;
 
 /**
+ * Excepción para ecuaciones inváldias
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
  * @author DIEGO GARCÍA GAYOU

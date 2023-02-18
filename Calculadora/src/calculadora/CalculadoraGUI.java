@@ -5,6 +5,7 @@
 package calculadora;
 
 /**
+ * Clase CalculadoraGui para implementar la interfaz gráfica de una calculadora funcional
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
  * @author DIEGO GARCÍA GAYOU
@@ -30,6 +31,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jb6 = new javax.swing.JButton();
         jb4 = new javax.swing.JButton();
         jb7 = new javax.swing.JButton();
@@ -55,8 +57,10 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         jbBorrarTodo = new javax.swing.JButton();
         jbE = new javax.swing.JButton();
 
+        jLabel1.setText("jLabel1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CALCULATOR");
+        setTitle("CALCULADORA");
 
         jb6.setBackground(new java.awt.Color(255, 255, 153));
         jb6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -386,6 +390,8 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         jbBorrarTodo.getAccessibleContext().setAccessibleName("jbAc");
         jbBorrarTodo.getAccessibleContext().setAccessibleDescription("");
 
+        getAccessibleContext().setAccessibleName("CALCULADORA");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -407,7 +413,6 @@ public class CalculadoraGUI extends javax.swing.JFrame {
         catch(Exception e){
             jtfPantalla.setText(e.getMessage());  
         }
-        System.out.println(textoPantalla);
     }//GEN-LAST:event_jbRespuestaActionPerformed
 
     private void jbSumaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSumaActionPerformed
@@ -538,6 +543,7 @@ public class CalculadoraGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jb0;
     private javax.swing.JButton jb1;
     private javax.swing.JButton jb2;

@@ -9,32 +9,63 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * <pre>
+ * Clase Calculadora<br>
+ * Contiene los métodos necesarios para validar, convertir y evaluar una expresión matemática
+ * </pre>
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
  * @author DIEGO GARCÍA GAYOU
  * @author WILFREDO SALAZAR
  */
-public abstract class Calculadora {
-    public static void main(String[] args) {
-
-        String st = "5+πe+7";
-                
-        System.out.println(st.matches(".*[eπ]|[πe].*"));
-        ArrayList <String> Postfix = infijoAPostfijo(st);
-        System.out.println("La expresión Postfijo es: " + Postfix );
-        System.out.println("El resultado es: " + evaluate(Postfix));
-    }
+public abstract class Calculadora { 
     
-    //Métodos de revisión
+ /**
+     * <ul>
+     * <li>Función esOperando()</li><br>
+     * <li>Regex condición 1: </li><br>
+     * <ul><li>Checa números positivos o negativos, con o sin punto decimal</li><br></ul>
+     * <li>Regex condición 2: </li><br>
+     * <ul><li>Checa números positivos o negativos, que empiecen con punto decimal</li><br></ul>
+     * <li>Regex condición 3: </li><br>
+     * <ul><li>Checa números positivos o negativos, con o sin punto decimal y con notación exponenecial</li></ul>
+     * </ul>
+     * @param c Cadena que contiene una parte de la expresión matemática
+     * @return <ul>
+        * <li>true si cumple una de las condiciones del regex (regular expressions)</li> 
+        * <li>false si no cumple ninguna condición</li>
+     * </ul>
+ */
     public static boolean esOperando(String c) {
-        return c.matches("\\-?\\d+\\.?\\d*") ||c.matches("-?\\.\\d+") || c.matches("\\-?\\d+\\.?\\d*E{0,1}\\d+"); 
+        return c.matches("\\-?\\d+\\.?\\d*") || c.matches("-?\\.\\d+") || c.matches("\\-?\\d+\\.?\\d*E{0,1}\\d+"); 
     }
     
+  /**
+     * <ul>
+     * <li>Función esOperador()</li><br>
+     * <li>Revisa si el caracter enviado es un operador</li><br>
+     * </ul>
+     * @param c: un caracter de la cadena
+     * @return true si es algún operador de (+,-,/,*,^) / false si no es ningún operador
+ */
     public static boolean esOperador(char c){
         return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
     }
     
-    //Revisar
+/**
+     * <ul>
+     * <li>Función revisaCadena()</li><br>
+     * <li>Primero, se valida que la expresión no termine con un operador</li><br>
+     * <li>Segundo, se valida que no empiece con un operador a excepción de que sea un número negativo (ej. -30)</li><br>
+     * <li>Tercero, como incorporamos los operandos π y e, se valida que estos no estén consecutivos sin un operador</li><br>
+     * <li>Cuarto, se verifica balanceo de parentésis y que no haya operadores que no deberían ser consecutivos</li><br>
+     * </ul>
+     * @param cadena Contiene expresión matemática infijo
+     * @return<ul> 
+     * <li>true si es una expresión válida</li> 
+     * <li>false si no es válida</li>
+     * </ul> 
+ */
     public static boolean revisaCadena(String cadena){
         Character caracter, previous_token;
         boolean res = true;
@@ -44,19 +75,21 @@ public abstract class Calculadora {
         String regex; 
         Pattern pattern; 
         Matcher checker; 
-        //Para evitar seguir revisando si hay operador al final está mal
+        regex = "eπ|πe|\\dπ|\\de|π\\d|e\\d|\\)\\(";
+        pattern = Pattern.compile(regex, Pattern.MULTILINE);
+        checker = pattern.matcher(cadena);
+        
+        //REVISIONES INICIALES
         if (esOperador(cadena.charAt(cadena.length()-1)))
             throw new InvalidEcuationException("Ecuación Inválida");
         if (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-')
             throw new InvalidEcuationException("Ecuación Inválida");
-        
-        regex = "eπ|πe|\\dπ|\\de|π\\d|e\\d|\\)\\(";
-        pattern = Pattern.compile(regex, Pattern.MULTILINE);
-        checker = pattern.matcher(cadena);
         if (checker.find())
             throw new InvalidEcuationException("Ecuación Inválida");
 
-        
+        //EN ESTA SECCIÓN SE REVISA EL BALANCEO DE PARÉNTESIS 
+        //SE VALIDA QUE NO HAYA OPERADORES CON LA MISMA PRIORIDAD O UNO DE MENOR PRIORIDAD PRECEDIDO POR UNO DE MAYOR
+        //ej. -*3, +/5
         while (i < cadena.length() && res){
             caracter = cadena.charAt(i);
             if (i < cadena.length()-1 && esOperador(caracter) && esOperador(cadena.charAt(i+1))){
@@ -87,7 +120,15 @@ public abstract class Calculadora {
         return res;
     }
     
-    //Preporcesamiento de cadena
+ /**
+     * <ul>
+     * <li>Función getGroupedCadena()</li><br>
+     * <li>Recibe una cadena y llama a la función revisaCadena y getGroupedCadena para validar y agrupar</li><br>
+     * <li>Devuelve un ArrayList de tipo String con los términos en postfijo</li>
+     * </ul>
+     * @param cadena: cadena infijo de una expresión matemática
+     * @return infijoDivided: ArrayList de Strings con la cadena dividida
+ */
     public static ArrayList <String> getGroupedCadena(String cadena){
         int i;
         String [] infijo;
@@ -118,17 +159,16 @@ public abstract class Calculadora {
         return infijoDivided;
     }
     
-    /**
-     * <pre>
+/**
      * <ul>
-     * <li>Conversión de la cadena almacenda en un arraylist a postfijo</li>
-     * <li>Recibe una cadena y llama a la función revisaCadena y getGroupedCadena para validar y agrupar</li>
+     * <li> Función infijoAPostfijo()</li><br>
+     * <li>Conversión de la cadena almacenda en un arraylist a postfijo</li><br>
+     * <li>Recibe una cadena y llama a la función revisaCadena y getGroupedCadena para validar y agrupar</li><br>
      * <li>Devuelve un ArrayList de tipo String con los términos en postfijo</li>
      * </ul>
-     * </pre>
-     * @param cadena
-     * @return PostfixExpression
-     */
+     * @param cadena: cadena con una expresión infijo
+     * @return PostfixExpression: ArrayList de Strings con la expresión en postfijo
+ */
     public static ArrayList  <String> infijoAPostfijo(String cadena) {
         PilaADT <String> operadores = new PilaA <>();
         ArrayList  <String> groupList;
@@ -164,16 +204,15 @@ public abstract class Calculadora {
         return PostfixExpression;    
     }
  
-    /**
-     * <pre>
+ /**
      * <ul>
-     * <li>Función que devuelve la prioridad de un operador</li>
-     * <li>Recibe un caracter y revisa su prioridad</li>
-     * <li>Devuelve un entero con la prioridad
-     * </pre>
-     * @param c
-     * @return [1,3]
-     */
+     * <li>Función que devuelve la prioridad de un operador</li><br>
+     * <li>Recibe un caracter y revisa su prioridad</li><br>
+     * <li>Devuelve un entero con la prioridad</li>
+     * </ul>
+     * @param c: Recibe un caracter
+     * @return Un número entre [1,3] correspondeinte a la prioridad de operadores
+ */
  public static int getPrioridad(char c) {
         switch (c) {
             case '+':
@@ -192,9 +231,16 @@ public abstract class Calculadora {
     
     
  /**
-  * 
-  * @param postfijo 
-  * @return res
+     * <ul>
+     * <li>Función evaluate()</li>
+     * <li>FEvalúa una expresión postfijo</li><br>
+     * <li>Itera sobre el arreglo postfijo y si encuentra un operador saca dos operandos de una pila</li><br>
+     * <li>Despúes hace la operación correspondiente y agrega esa respuesta a la pila</li><br>
+     * <li>Si no es un operador agrega los números a la pila</li><br>
+     * <li>Devuelve la evaluación de la expresión</li>
+     * </ul>
+  * @param postfijo Un ArrayList de Strings que almacena la expresión 
+  * @return res: El resultado de la evalucación
   */
     public static double evaluate(ArrayList <String>postfijo){
         Double num1, num2, res;
@@ -230,7 +276,7 @@ public abstract class Calculadora {
                 }
                 operandos.push(res);
             } else {
-                operandos.push(Double.parseDouble(element));
+                operandos.push(Double.valueOf(element));
             }
         }
         res = operandos.pop();

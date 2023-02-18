@@ -5,6 +5,7 @@
 package calculadora;
 
 /**
+ * Excepción para Operaciones no definidas:
  * @author GERARDO OBEID GUZMÁN
  * @author JOSE PABLO ANTÚNEZ
  * @author DIEGO GARCÍA GAYOU
