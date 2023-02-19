@@ -45,7 +45,7 @@ public abstract class Calculadora {
      * <li>Función esOperador()</li><br>
      * <li>Revisa si el caracter enviado es un operador</li><br>
      * </ul>
-     * @param c: un caracter de la cadena
+     * @param c un caracter de la cadena
      * @return true si es algún operador de (+,-,/,*,^) / false si no es ningún operador
  */
     public static boolean esOperador(char c){
@@ -123,10 +123,11 @@ public abstract class Calculadora {
  /**
      * <ul>
      * <li>Función getGroupedCadena()</li><br>
-     * <li>Recibe una cadena y llama a la función revisaCadena y getGroupedCadena para validar y agrupar</li><br>
-     * <li>Devuelve un ArrayList de tipo String con los términos en postfijo</li>
+     * <li>Recibe una cadena y sustituye π y e si se encuentran en la cadena</li><br>
+     * <li>utiliza regex para dividir la cadena por cada signo de los siguientes: (-,+,*,^,/,(,))</li><br>
+     * <li>Devuelve un ArrayList de tipo String con los términos aun en infijo, pero divididos</li>
      * </ul>
-     * @param cadena: cadena infijo de una expresión matemática
+     * @param cadena cadena infijo de una expresión matemática
      * @return infijoDivided: ArrayList de Strings con la cadena dividida
  */
     public static ArrayList <String> getGroupedCadena(String cadena){
@@ -232,8 +233,8 @@ public abstract class Calculadora {
     
  /**
      * <ul>
-     * <li>Función evaluate()</li>
-     * <li>FEvalúa una expresión postfijo</li><br>
+     * <li>Función evaluate()</li><br>
+     * <li>Evalúa una expresión postfijo</li><br>
      * <li>Itera sobre el arreglo postfijo y si encuentra un operador saca dos operandos de una pila</li><br>
      * <li>Despúes hace la operación correspondiente y agrega esa respuesta a la pila</li><br>
      * <li>Si no es un operador agrega los números a la pila</li><br>
