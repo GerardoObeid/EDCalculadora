@@ -80,12 +80,9 @@ public abstract class Calculadora {
         checker = pattern.matcher(cadena);
         
         //REVISIONES INICIALES
-        if (esOperador(cadena.charAt(cadena.length()-1)))
+        if (esOperador(cadena.charAt(cadena.length()-1))|| (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-') || checker.find())
             throw new InvalidEcuationException("Ecuación Inválida");
-        if (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-')
-            throw new InvalidEcuationException("Ecuación Inválida");
-        if (checker.find())
-            throw new InvalidEcuationException("Ecuación Inválida");
+
 
         //EN ESTA SECCIÓN SE REVISA EL BALANCEO DE PARÉNTESIS 
         //SE VALIDA QUE NO HAYA OPERADORES CON LA MISMA PRIORIDAD O UNO DE MENOR PRIORIDAD PRECEDIDO POR UNO DE MAYOR
@@ -147,7 +144,7 @@ public abstract class Calculadora {
                 i++;
               }
             else{
-                if (i != -1 && infijo[i].equals("-") && (esOperador(infijo[i-1].charAt(0)) || infijo[i-1].equals("("))){
+                if (infijo[i].equals("-") && (esOperador(infijo[i-1].charAt(0)) || infijo[i-1].equals("("))){
                     infijoDivided.add( "-" + infijo[i+1]);
                     i++;
                 }
