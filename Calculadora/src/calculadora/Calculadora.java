@@ -58,7 +58,8 @@ public abstract class Calculadora {
      * <li>Primero, se valida que la expresión no termine con un operador</li><br>
      * <li>Segundo, se valida que no empiece con un operador a excepción de que sea un número negativo (ej. -30)</li><br>
      * <li>Tercero, como incorporamos los operandos π y e, se valida que estos no estén consecutivos sin un operador</li><br>
-     * <li>Cuarto, se verifica balanceo de parentésis y que no haya operadores que no deberían ser consecutivos</li><br>
+     * <li>Cuarto, se revisa si hay un dígito precedido por un paréntesis y no contiene un operador</li><br>
+     * <li>Quinto, se verifica balanceo de parentésis y que no haya operadores que no deberían ser consecutivos</li><br>
      * </ul>
      * @param cadena Contiene expresión matemática infijo
      * @return<ul> 
@@ -75,7 +76,7 @@ public abstract class Calculadora {
         String regex; 
         Pattern pattern; 
         Matcher checker; 
-        regex = "eπ|πe|\\dπ|\\de|π\\d|e\\d|\\)\\(";
+        regex = "eπ|πe|\\dπ|\\de|π\\d|e\\d|\\)\\(|\\d\\(|\\(\\)";
         pattern = Pattern.compile(regex, Pattern.MULTILINE);
         checker = pattern.matcher(cadena);
         
