@@ -113,7 +113,7 @@ public abstract class Calculadora {
            i++; 
         }
         if (!pila1.isEmpty())
-            res = !res;
+            res = false;
         return res;
     }
     
