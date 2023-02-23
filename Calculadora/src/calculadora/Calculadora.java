@@ -23,13 +23,19 @@ public abstract class Calculadora {
  /**
      * <ul>
      * <li>Función esOperando()</li><br>
-     * <li>Regex condición 1: </li><br>
-     * <ul><li>Checa números positivos o negativos, con o sin punto decimal</li><br></ul>
-     * <li>Regex condición 2: </li><br>
-     * <ul><li>Checa números positivos o negativos, que empiecen con punto decimal</li><br></ul>
-     * <li>Regex condición 3: </li><br>
-     * <ul><li>Checa números positivos o negativos, con o sin punto decimal y con notación exponenecial</li></ul>
+     * <li>Regex condición 1</li><br>
+     * <ul><li>Checa números positivos o negativos, con o sin punto decimal</li></ul><br>
+     * <li>Regex condición 2</li><br>
+     * <ul><li>Checa números positivos o negativos, que empiecen con punto decimal</li></ul><br>
+     * <li>Regex condición 3</li><br>
+     * <ul><li>Checa números positivos o negativos, con o sin punto decimal y con notación exponenecial</li></ul><br>
      * </ul>
+     * 
+     * <pre>
+     * Regex condición 1: \\-?\\d+\\.?\\d*
+     * Regex condición 2: -?\\.\\d+
+     * Regex condición 3: \\-?\\d+\\.?\\d*E{0,1}\\d+
+     * </pre>
      * @param c Cadena que contiene una parte de la expresión matemática
      * @return <ul>
         * <li>true si cumple una de las condiciones del regex (regular expressions)</li> 
@@ -68,7 +74,7 @@ public abstract class Calculadora {
      * </ul> 
  */
     public static boolean revisaCadena(String cadena){
-        Character caracter, previous_token;
+        Character caracter, previousToken;
         boolean res = true;
         PilaADT <Character> pila1  = new PilaA();
         int i = 0;
@@ -81,8 +87,9 @@ public abstract class Calculadora {
         checker = pattern.matcher(cadena);
         
         //REVISIONES INICIALES
-        if (esOperador(cadena.charAt(cadena.length()-1))|| (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-') || checker.find())
+        if (esOperador(cadena.charAt(cadena.length()-1))|| (esOperador(cadena.charAt(0)) && cadena.charAt(0) != '-') || checker.find()){
             throw new InvalidEcuationException("Ecuación Inválida");
+        }
 
 
         //EN ESTA SECCIÓN SE REVISA EL BALANCEO DE PARÉNTESIS 
@@ -93,8 +100,10 @@ public abstract class Calculadora {
             if (i < cadena.length()-1 && esOperador(caracter) && esOperador(cadena.charAt(i+1))){
                 prioridad1 = getPrioridad(caracter);
                 prioridad2 = getPrioridad(cadena.charAt(i+1));
-                if (prioridad1 <= prioridad2)
+               
+                if (prioridad1 <= prioridad2){
                     throw new InvalidEcuationException("Ecuación Inválida");
+                }
             }
             if (caracter == '(' ){
                 pila1.push(caracter);
@@ -103,8 +112,8 @@ public abstract class Calculadora {
             }
             else if (caracter == ')'){
                 try{
-                    previous_token = pila1.pop();
-                    if (previous_token != '(')
+                    previousToken = pila1.pop();
+                    if (previousToken != '(')
                         res =  false;
                     }
                   catch (EmtpyCollectionException error){
@@ -212,20 +221,28 @@ public abstract class Calculadora {
      * @param c: Recibe un caracter
      * @return Un número entre [1,3] correspondeinte a la prioridad de operadores
  */
- public static int getPrioridad(char c) {
+    public static int getPrioridad(char c) {
+        int res;
         switch (c) {
             case '+':
-                 return 1;
+                 res = 1;
+                 break;
             case '-':
-                return 1;
+                res =  1;
+                break;
             case '*':
-                return 2;
+                res = 2;
+                break;
             case '/':
-                return 2;
+                res = 2;
+                break;
             case '^':
-                return 3;
+                res = 3;
+                break;
+            default:
+                res = -1;
         }
-        return -1;
+        return res;
     }
     
     
