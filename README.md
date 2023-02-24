@@ -1,5 +1,6 @@
 # EDCalculadora
 # Developers:
     # Gerardo Obeid
-    # Diego
+    # Diego Gayou
     # Jose Pablo
+    # Wilfredo Salazar
